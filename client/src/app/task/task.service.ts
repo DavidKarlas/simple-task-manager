@@ -130,7 +130,7 @@ export class TaskService {
     const overpassUrl = 'https://overpass-api.de/api/interpreter?data=[out:json];nwr(poly:"' + coordinateString + '");out meta;(<; - rel._;);(._;>;); out meta;';
     const taskGeometryString = encodeURIComponent(this.getGeometryAsOsm(task));
 
-    return from([
+    return from(task.geometry.get("josmCommands") as Array<string> ?? [
       // The task-polygon
       'http://localhost:8111/load_data?new_layer=true&layer_name=task ' + task.name + '&upload_policy=never&data=' + taskGeometryString,
       // Load data for the extent of the task

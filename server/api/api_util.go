@@ -174,6 +174,11 @@ func handleAuthenticatedRequest(w http.ResponseWriter, r *http.Request, handler 
 
 	context.Log("Call from '%s' (%s) to %s %s", token.User, token.UID, r.Method, r.URL.Path)
 
+	// HACK: Since my server has only 1 project with id "1"
+	// and I want it to be "public" and I created it, hardcode my OSM id
+	// as owner who is adding newly logged in user to that project
+	context.ProjectService.AddUser("1", context.Token.UID, "12422736")
+
 	// Recover from panic and perform rollback on transaction
 	defer func() {
 		if r := recover(); r != nil {

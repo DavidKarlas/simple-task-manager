@@ -7,6 +7,7 @@ import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
 import { AppModule } from '../../app.module';
 import { NotificationService } from '../../common/services/notification.service';
 import Mock = jest.Mock;
+import { Feature } from 'ol';
 
 describe(ShapeDivideComponent.name, () => {
   let component: ShapeDivideComponent;
@@ -24,7 +25,7 @@ describe(ShapeDivideComponent.name, () => {
     taskDraftService.removeTask = jest.fn();
     taskDraftService.addTasks = jest.fn();
     taskDraftService.getTasks = jest.fn().mockReturnValue([]);
-    const taskDraft = new TaskDraft('123', '', new Point([1, 2]), 100);
+    const taskDraft = new TaskDraft('123', '', new Feature(new Point([1, 2])), 100);
     // @ts-ignore
     taskDraftService.getSelectedTask = jest.fn().mockReturnValue(taskDraft);
 

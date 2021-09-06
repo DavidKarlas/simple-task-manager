@@ -81,7 +81,7 @@ describe(ShapeRemoteComponent.name, () => {
     geometryService.parseData = jest.fn().mockReturnValue([geometry]);
     taskDraftService.addTasks = jest.fn().mockImplementation((t: TaskDraft[]) => {
       expect(t.length).toEqual(1);
-      expect((t[0].geometry as Polygon).getCoordinates()).toEqual(expectedCoordinates);
+      expect((t[0].geometry.getGeometry() as Polygon).getCoordinates()).toEqual(expectedCoordinates);
     });
     taskDraftService.toTaskDraft = jest.fn().mockReturnValue(new TaskDraft('1', 'one', geometry, 10));
 

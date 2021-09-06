@@ -29,9 +29,7 @@ export class ProjectImportService {
    * Copies the project export properties and all tasks but without the process points.
    */
   public importProjectAsNewProject(project: ProjectExport): void {
-    // TODO Handle this correctly when there are task specific max-point amounts (s. #139).
-    // Until #139 is not implemented, we can assume here that all maxProcessPoints values are the same, so just pick the first one.
-    const maxProcessPoints = project.tasks[0].maxProcessPoints;
+    const maxProcessPoints = Math.max(...project.tasks.map<number>(t=> t.maxProcessPoints));
     const projectProperties = new ProjectProperties(project.name, maxProcessPoints, project.description);
     this.projectPropertiesImported.next(projectProperties);
 
@@ -40,7 +38,7 @@ export class ProjectImportService {
     const taskDrafts = tasksWithGeometries.map(t => {
       const taskFeature = this.format.readFeature(t.geometry) as Feature<Geometry>;
       // @ts-ignore
-      return new TaskDraft(undefined, t.name, taskFeature.getGeometry(), 0);
+      return new TaskDraft(undefined, t.name, taskFeature, 0, t.maxProcessPoints);
     });
 
     this.taskDraftService.addTasks(taskDrafts);

@@ -173,8 +173,8 @@ describe(ProjectCreationComponent.name, () => {
     expect(component.vectorSource.clear).not.toHaveBeenCalled();
     // @ts-ignore
     const featuresArg = (component.vectorSource.addFeatures as jest.Mock).mock.calls[0][0] as Feature<Geometry>[];
-    expect(featuresArg[0].getGeometry()).toEqual(tasks[0].geometry);
-    expect(featuresArg[1].getGeometry()).toEqual(tasks[1].geometry);
+    expect(featuresArg[0].getGeometry()).toEqual(tasks[0].geometry?.getGeometry());
+    expect(featuresArg[1].getGeometry()).toEqual(tasks[1].geometry?.getGeometry());
     expect(mapLayerService.fitToFeatures).toHaveBeenCalled();
   });
 
@@ -445,8 +445,8 @@ describe(ProjectCreationComponent.name, () => {
 
   function getDummyTasks(): TaskDraft[] {
     return [
-      new TaskDraft('1', 'name 1', new Polygon([[[0, 0], [1000, 1000], [2000, 0], [0, 0]]]), 0),
-      new TaskDraft('2', 'name 1', new Polygon([[[4000, 4000], [5000, 6000], [6000, 4000], [4000, 4000]]]), 0)
+      new TaskDraft('1', 'name 1', new Feature(new Polygon([[[0, 0], [1000, 1000], [2000, 0], [0, 0]]])), 0, 100),
+      new TaskDraft('2', 'name 1', new Feature(new Polygon([[[4000, 4000], [5000, 6000], [6000, 4000], [4000, 4000]]])), 0, 100)
     ];
   }
 });
