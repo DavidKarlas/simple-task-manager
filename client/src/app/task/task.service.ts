@@ -108,7 +108,7 @@ export class TaskService {
     const e = this.getExtent(task);
 
     // Make sequential requests to these URLs
-    return from([
+    return from(task.geometry.get("josmCommands") as Array<string> ?? [
       // The task-polygon
       'http://localhost:8111/load_data?new_layer=true&layer_name=task-shape&data=' + encodeURIComponent(this.getGeometryAsOsm(task)),
       // Load data for the extent of the task

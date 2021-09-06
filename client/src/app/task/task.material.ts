@@ -19,8 +19,9 @@ export class TaskDraft {
   constructor(
     public id: string,
     public name: string,
-    public geometry: Geometry,
-    public processPoints: number
+    public geometry: Feature,
+    public processPoints: number,
+    public maxProcessPoints: number
   ) {
   }
 }

@@ -399,9 +399,10 @@ export class ProjectCreationComponent extends Unsubscriber implements OnInit, Af
   }
 
   public toFeature(task: TaskDraft): Feature {
-    const f = new Feature(task.geometry);
+    const f = task.geometry;
     f.set('id', task.id);
     f.set('name', task.name);
+    f.set('maxProcessPoints', task.maxProcessPoints);
     return f;
   }
 }

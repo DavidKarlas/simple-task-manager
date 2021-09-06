@@ -1,10 +1,11 @@
 {
-	"server-url": "https://stm.hauke-stieler.de",
-	"port": 8080,
-	"osm-base-url": "https://www.openstreetmap.org",
-	"debug-logging": false,
-	"ssl-cert-file": "/etc/letsencrypt/live/stm.hauke-stieler.de/fullchain.pem",
-	"ssl-key-file": "/etc/letsencrypt/live/stm.hauke-stieler.de/privkey.pem",
-	"token-validity": "168h",
-	"source-repo-url": "https://github.com/hauke96/simple-task-manager"
+        "server-url": "https://osm.karlas.si",
+        "port": 8080,
+        "osm-base-url": "https://www.openstreetmap.org",
+        "debug-logging": false,
+        "ssl-cert-file": "/etc/letsencrypt/live/karlas.si/fullchain.pem",
+        "ssl-key-file": "/etc/letsencrypt/live/karlas.si/privkey.pem",
+        "token-validity": "168h",
+        "source-repo-url": "https://github.com/hauke96/simple-task-manager",
+        "max-task-per-project": 5000
 }

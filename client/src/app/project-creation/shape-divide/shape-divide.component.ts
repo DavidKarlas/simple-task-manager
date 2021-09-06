@@ -8,6 +8,7 @@ import { NotificationService } from '../../common/notification.service';
 import { TaskDraft } from '../../task/task.material';
 import { TaskDraftService } from '../task-draft.service';
 import { ConfigProvider } from '../../config/config.provider';
+import { Feature } from 'ol';
 
 @Component({
   selector: 'app-shape-divide',
@@ -50,7 +51,7 @@ export class ShapeDivideComponent implements OnInit {
   }
 
   onPreviewButtonClicked() {
-    this.previewTasks.forEach(t => t.geometry.transform('EPSG:4326', 'EPSG:3857'));
+    this.previewTasks.forEach(t => t.geometry.getGeometry()?.transform('EPSG:4326', 'EPSG:3857'));
     this.previewClicked.emit(this.previewTasks);
   }
 
@@ -78,7 +79,7 @@ export class ShapeDivideComponent implements OnInit {
    * This just creates the tasks but does not add them to the TaskDraftService.
    */
   private createTaskDrafts(): TaskDraft[] | undefined {
-    const polygon = this.selectedTask.geometry.clone() as Polygon;
+    const polygon = this.selectedTask.geometry.getGeometry()?.clone() as Polygon;
     const extent = polygon.transform('EPSG:3857', 'EPSG:4326').getExtent();
 
     // Use meters and only show grid cells within the original polygon (-> mask)
@@ -117,7 +118,7 @@ export class ShapeDivideComponent implements OnInit {
       // Turn geo GeoJSON polygon from turf.js into an openlayers polygon
       const geometry = new Polygon(g.geometry.coordinates);
 
-      return new TaskDraft('', '', geometry, 0);
+      return new TaskDraft('', '', new Feature(geometry), 0, 100);
     });
   }
 

@@ -136,8 +136,8 @@ describe('ProjectCreationComponent', () => {
     component.addTasks(tasks);
 
     expect(vectorSourceClearSpy).not.toHaveBeenCalled();
-    expect((vectorSourceAddSpy.calls.first().args[0] as Feature[])[0].getGeometry()).toEqual(tasks[0].geometry);
-    expect((vectorSourceAddSpy.calls.first().args[0] as Feature[])[1].getGeometry()).toEqual(tasks[1].geometry);
+    expect((vectorSourceAddSpy.calls.first().args[0] as Feature[])[0].getGeometry()).toEqual(tasks[0].geometry?.getGeometry());
+    expect((vectorSourceAddSpy.calls.first().args[0] as Feature[])[1].getGeometry()).toEqual(tasks[1].geometry?.getGeometry());
     expect(spyView).toHaveBeenCalled();
   });
 
@@ -314,8 +314,8 @@ describe('ProjectCreationComponent', () => {
 
   function getDummyTasks(): TaskDraft[] {
     return [
-      new TaskDraft('1', 'name 1', new Polygon([[[0, 0], [1000, 1000], [2000, 0], [0, 0]]]), 0),
-      new TaskDraft('1', 'name 1', new Polygon([[[4000, 4000], [5000, 6000], [6000, 4000], [4000, 4000]]]), 0)
+      new TaskDraft('1', 'name 1', new Feature(new Polygon([[[0, 0], [1000, 1000], [2000, 0], [0, 0]]])), 0, 100),
+      new TaskDraft('1', 'name 1', new Feature(new Polygon([[[4000, 4000], [5000, 6000], [6000, 4000], [4000, 4000]]])), 0, 100)
     ];
   }
 });

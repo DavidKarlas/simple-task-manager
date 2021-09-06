@@ -7,6 +7,7 @@ import { TaskDraft } from '../../task/task.material';
 import { TaskDraftService } from '../task-draft.service';
 import { ConfigProvider } from '../../config/config.provider';
 import Spy = jasmine.Spy;
+import { Feature } from 'ol';
 
 describe('ShapeDivideComponent', () => {
   let component: ShapeDivideComponent;
@@ -40,7 +41,7 @@ describe('ShapeDivideComponent', () => {
     fixture = TestBed.createComponent(ShapeDivideComponent);
     component = fixture.componentInstance;
 
-    component.selectedTask = new TaskDraft('0', 'foo', new Polygon([[[0, 0], [1000, 1000], [2000, 0], [0, 0]]]), 0);
+    component.selectedTask = new TaskDraft('0', 'foo', new Feature(new Polygon([[[0, 0], [1000, 1000], [2000, 0], [0, 0]]])), 0, 100);
     component.gridCellSize = 100;
   });
 

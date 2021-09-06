@@ -76,7 +76,8 @@ export class TaskDraftService {
       // TODO Handle not existing geometry
       // @ts-ignore
       feature.getGeometry(),
-      0
+      0,
+      100//TODO: this.projectCreationComponent.projectProperties.maxProcessPoints
     );
   }
 
@@ -95,7 +96,7 @@ export class TaskDraftService {
     // Transform geometries into the correct projection
     tasks.forEach(f => {
       if (transformGeometry) {
-        f.geometry.transform('EPSG:4326', 'EPSG:3857');
+        f.geometry.getGeometry()?.transform('EPSG:4326', 'EPSG:3857');
       }
 
       // The ID should be a string in general, so the else-clause turns a number into a string.

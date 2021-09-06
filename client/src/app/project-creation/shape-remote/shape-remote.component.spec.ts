@@ -76,7 +76,7 @@ describe('ShapeRemoteComponent', () => {
     spyOn(httpClient, 'get').and.returnValue(of(remoteGeometry));
     const eventSpy = spyOn(taskDraftService, 'addTasks').and.callFake((t: TaskDraft[]) => {
       expect(t.length).toEqual(1);
-      expect((t[0].geometry as Polygon).getCoordinates()).toEqual(expectedCoordinates);
+      expect((t[0].geometry.getGeometry() as Polygon).getCoordinates()).toEqual(expectedCoordinates);
     });
 
     component.onLoadButtonClicked();

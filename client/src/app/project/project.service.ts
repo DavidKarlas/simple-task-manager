@@ -104,7 +104,7 @@ export class ProjectService {
 
     const p = new ProjectAddDto(
       new ProjectDraftDto(name, projectDescription, users, owner),
-      geometries.map(g => new TaskDraftDto(maxProcessPoints, 0, g))
+      features.map(feature => new TaskDraftDto(feature.get('maxProcessPoints') ?? maxProcessPoints, 0, format.writeFeature(feature)))
     );
 
     return this.http.post<ProjectDto>(environment.url_projects, JSON.stringify(p))
