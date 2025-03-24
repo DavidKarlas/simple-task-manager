@@ -177,7 +177,9 @@ func handleAuthenticatedRequest(w http.ResponseWriter, r *http.Request, handler 
 	// HACK: Since my server has only 1 project with id "1"
 	// and I want it to be "public" and I created it, hardcode my OSM id
 	// as owner who is adding newly logged in user to that project
-	context.ProjectService.AddUser("1", context.Token.UID, "12422736")
+	if context.Token.UID != "2146151" {
+		context.ProjectService.AddUser("1", context.Token.UID, "12422736")
+	}
 
 	// Recover from panic and perform rollback on transaction
 	defer func() {

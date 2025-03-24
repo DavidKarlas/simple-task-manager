@@ -53,7 +53,7 @@ export class ShapeDivideComponent implements OnInit {
     return this.taskDraftService.getTasks().length - 1 + this.previewTasks.length;
   }
 
-  onPreviewButtonClicked(): void {
+  onPreviewWanted(): void {
     this.previewTasks.forEach(t => t.geometry.getGeometry()?.transform('EPSG:4326', 'EPSG:3857'));
     this.previewClicked.emit(this.previewTasks);
   }
@@ -82,11 +82,13 @@ export class ShapeDivideComponent implements OnInit {
    */
   private createTaskDrafts(): TaskDraft[] | undefined {
     const selectedTaskGeometry = this.selectedTask.geometry.getGeometry()?.clone();
+    if(selectedTaskGeometry==undefined)
+      return;
     selectedTaskGeometry.transform('EPSG:3857', 'EPSG:4326');
     const extent = selectedTaskGeometry.getExtent() as BBox.BBox;
 
     let feature: TurfFeature<any>;
-    switch (this.selectedTask.geometry.getType()) {
+    switch (selectedTaskGeometry.getType()) {
       case 'Polygon':
         feature = turfPolygon((selectedTaskGeometry as Polygon).getCoordinates());
         break;
@@ -94,7 +96,7 @@ export class ShapeDivideComponent implements OnInit {
         feature = turfMultiPolygon((selectedTaskGeometry as MultiPolygon).getCoordinates());
         break;
       default:
-        throw new Error(`Unsupported task geometry type '${this.selectedTask.geometry.getType()}'`);
+        throw new Error(`Unsupported task geometry type '${selectedTaskGeometry.getType()}'`);
     }
 
     // Use meters and only show grid cells within the original polygon (-> mask)
@@ -147,15 +149,18 @@ export class ShapeDivideComponent implements OnInit {
 
     console.log('Get area');
     let area = 0;
-    switch (this.selectedTask.geometry.getType()) {
+    const selectedTaskGeometry = this.selectedTask.geometry.getGeometry()?.clone();
+    if(selectedTaskGeometry==undefined)
+      return 0;
+    switch (selectedTaskGeometry.getType()) {
       case 'Polygon':
-        area = (this.selectedTask.geometry as Polygon).getArea();
+        area = (selectedTaskGeometry as Polygon).getArea();
         break;
       case 'MultiPolygon':
-        area = (this.selectedTask.geometry as MultiPolygon).getArea();
+        area = (selectedTaskGeometry as MultiPolygon).getArea();
         break;
       default:
-        throw new Error(`Unsupported task geometry type '${this.selectedTask.geometry.getType()}'`);
+        throw new Error(`Unsupported task geometry type '${selectedTaskGeometry.getType()}'`);
     }
     console.log('Got area', area, area / (Math.pow(this.gridCellSize, 2) * scale));
 
@@ -180,7 +185,7 @@ export class ShapeDivideComponent implements OnInit {
 
   public taskDividePropertyChanged(): void {
     this.previewTasks = this.createTaskDrafts() ?? [];
-    this.previewTasks.forEach(t => t.geometry.transform('EPSG:4326', 'EPSG:3857'));
+    this.previewTasks.forEach(t => t.geometry.getGeometry()?.transform('EPSG:4326', 'EPSG:3857'));
     this.onPreviewWanted();
   }
 }

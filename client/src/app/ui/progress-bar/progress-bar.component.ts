@@ -27,6 +27,7 @@ export class ProgressBarComponent implements OnInit {
   }
 
   getProcessPointPercentage(): number {
-    return Math.round(this.progressPoints / this.totalPoints * 100);
+    return Math.round(this.progressPoints / this.totalPoints * 10000) / 100;
+//    return Math.round(this.progressPoints / this.totalPoints * 100);
   }
 }

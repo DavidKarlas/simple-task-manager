@@ -123,11 +123,11 @@ export class TaskService {
         return throwError(() => new Error(`Unsupported task geometry type '${geometry.getType()}'`));
     }
 
-    if (!coordinateString) {
-      return throwError(() => new Error('Empty coordinates'));
-    }
+    // if (!coordinateString) {
+    //   return throwError(() => new Error('Empty coordinates'));
+    // }
 
-    const overpassUrl = 'https://overpass-api.de/api/interpreter?data=[out:json];nwr(poly:"' + coordinateString + '");out meta;(<; - rel._;);(._;>;); out meta;';
+    //const overpassUrl = 'https://overpass-api.de/api/interpreter?data=[out:json];nwr(poly:"' + coordinateString + '");out meta;(<; - rel._;);(._;>;); out meta;';
     const taskGeometryString = encodeURIComponent(this.getGeometryAsOsm(task));
 
     return from(task.geometry.get("josmCommands") as Array<string> ?? [
@@ -135,7 +135,7 @@ export class TaskService {
       'http://localhost:8111/load_data?new_layer=true&layer_name=task ' + task.name + '&upload_policy=never&data=' + taskGeometryString,
       // Load data for the extent of the task
       // 'http://localhost:8111/load_and_zoom?new_layer=true&left=' + e[0] + '&right=' + e[2] + '&top=' + e[3] + '&bottom=' + e[1] + '&changeset_comment=' + encodeURIComponent('#stm #stm-project-' + projectId + ' ')
-      'http://localhost:8111/import?new_layer=true&url=' + overpassUrl
+      //'http://localhost:8111/import?new_layer=true&url=' + overpassUrl
     ])
       .pipe(
         concatMap(url => {
