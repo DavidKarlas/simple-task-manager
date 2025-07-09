@@ -4,6 +4,7 @@ FROM golang:latest AS builder
 COPY . /stm-server/
 WORKDIR /stm-server/
 
+RUN go mod tidy
 RUN go build -o ./server .
 
 # Stage 2: Run
