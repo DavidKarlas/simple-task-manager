@@ -1,10 +1,8 @@
 {
-	"server-url": "https://osm.karlas.si",
+	"server-url": "http://0.0.0.0",
 	"port": 8080,
-	"client-auth-redirect-url": "https://osm.karlas.si/oauth-landing",
+	"client-auth-redirect-url": "https://gurs-import.karlas.si/api/oauth-landing",
 
-        "ssl-cert-file": "/etc/letsencrypt/live/osm.karlas.si/fullchain.pem",
-        "ssl-key-file": "/etc/letsencrypt/live/osm.karlas.si/privkey.pem",
 	"debug-logging": false,
 	"max-task-per-project": 15000
 }
