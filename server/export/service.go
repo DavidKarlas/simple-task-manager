@@ -55,6 +55,7 @@ func (s *ExportService) ImportProject(projectExport *ProjectExport, requestingUs
 			MaxProcessPoints: t.MaxProcessPoints,
 			ProcessPoints:    t.ProcessPoints,
 			Geometry:         t.Geometry,
+			AssignedUser:     t.AssignedUser,
 		}
 	}
 
