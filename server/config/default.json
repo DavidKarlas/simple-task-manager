@@ -1,7 +1,7 @@
 {
 	"server-url": "http://0.0.0.0",
 	"port": 8080,
-	"client-auth-redirect-url": "https://gurs-import.karlas.si/api/oauth-landing",
+	"client-auth-redirect-url": "https://gurs-import.karlas.si/oauth-landing",
 
 	"debug-logging": false,
 	"max-task-per-project": 15000
